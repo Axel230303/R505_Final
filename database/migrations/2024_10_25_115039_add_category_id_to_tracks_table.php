@@ -12,17 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tracks', function (Blueprint $table) {
-            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
-    {
-        Schema::table('tracks', function (Blueprint $table) {
-            //
-        });
-    }
+{
+    // Désactiver les contraintes de clés étrangères
+    Schema::disableForeignKeyConstraints();
+
+    Schema::table('tracks', function (Blueprint $table) {
+        if (Schema::hasColumn('tracks', 'category_id')) {
+            // Supprime la contrainte de clé étrangère
+            $table->dropForeign(['category_id']);
+            // Supprime la colonne 'category_id'
+            $table->dropColumn('category_id');
+        }
+    });
+
+    // Réactiver les contraintes de clés étrangères
+    Schema::enableForeignKeyConstraints();
+}
+
 };

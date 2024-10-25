@@ -13,17 +13,22 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
-        
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
-    {
-        //
-    }
+{
+    // Désactiver les contraintes de clés étrangères
+    Schema::disableForeignKeyConstraints();
+
+    // Supprime la table 'categories'
+    Schema::dropIfExists('categories');
+
+    // Réactiver les contraintes de clés étrangères
+    Schema::enableForeignKeyConstraints();
+}
+
+
 };

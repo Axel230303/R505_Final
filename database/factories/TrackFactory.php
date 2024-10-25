@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Week;
 use Database\Samples\TrackSamples;
@@ -30,6 +31,7 @@ class TrackFactory extends Factory
             'url' => fake()->randomElement(['https://youtube.com/watch?v=ID', 'https://soundcloud/USER/TRACK']),
             'created_at' => $published_at,
             'updated_at' => $published_at,
+            'category_id'=> Category::factory(),
         ];
     }
 
