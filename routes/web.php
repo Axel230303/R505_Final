@@ -43,4 +43,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('categories', [CategoryController::class, 'index'])->name('app.categories.index');
-Route::get('categories/{category}', [CategoryController::class, 'show'])->name('app.categories.show');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('app.categories.show');

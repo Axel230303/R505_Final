@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class CategoryController extends Controller
 {
@@ -12,12 +13,13 @@ class CategoryController extends Controller
         return view('app.categories.index', compact('categories'));
     }    
     
-    public function show(Category $category)
+    public function show(Category $category): View
     {
-        // Récupère les contributions de la catégorie triées par nombre de "J'aime"
-        $tracks = $category->tracks()->orderBy('likes_count', 'desc')->paginate(10);
+        $tracks = $category->tracks()
+            ->withCount('likes')
+            ->orderBy('likes_count', 'desc') 
+            ->paginate(10);
 
-        // Affiche la vue avec les données de la catégorie et des contributions
         return view('app.categories.show', compact('category', 'tracks'));
     }
 }

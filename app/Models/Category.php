@@ -10,7 +10,8 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function tracks(){
+    public function tracks()
+    {
         return $this->hasMany(Track::class);
     }
 }

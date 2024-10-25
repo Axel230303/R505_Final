@@ -47,12 +47,13 @@
                 @endforeach
             </ol>
 
+            <!-- Pagination -->
             {{ $tracks->links('components.pagination') }}
             @endif
         </section>
 
         <div>
-            {{--  --}}
+            {{-- Section supplémentaire si nécessaire --}}
         </div>
     </main>
 </x-app>
