@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\models\Category;
 
 class Track extends Model
 {
@@ -66,5 +67,9 @@ class Track extends Model
         return $query->withCount('likes')
             ->orderBy('likes_count', 'desc')
             ->orderBy('created_at', 'asc');
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }
